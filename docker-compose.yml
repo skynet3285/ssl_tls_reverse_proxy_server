@@ -1,0 +1,25 @@
+services:
+  ssl-tls-reverse-proxy:
+    image: ssl-tls-reverse-proxy
+    container_name: ssl-tls-reverse-proxy
+    build:
+      context: ./ssl_tls_reverse_proxy_server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80" # HTTP for certbot's webroot certification port
+      - "5000:5000" # HTTPS Port ( Host HTTPS Port -> Host Proxy Port )
+    volumes:
+      - ./ssl_tls_reverse_proxy_server/certbot/conf:/etc/nginx/ssl
+      - ./ssl_tls_reverse_proxy_server/certbot/www:/var/www/certbot
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  ssl-certbot:
+    image: certbot/certbot
+    container_name: letsencrypt-ssl-certbot
+    build:
+      context: ./ssl_tls_reverse_proxy_server
+    volumes:
+      - ./ssl_tls_reverse_proxy_server/certbot/conf:/etc/letsencrypt
+      - ./ssl_tls_reverse_proxy_server/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
