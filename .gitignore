@@ -1,0 +1,6 @@
+# Nginx Configuration
+nginx.conf
+
+# SSL Certificates
+certbot/
+my_init_cert.sh
