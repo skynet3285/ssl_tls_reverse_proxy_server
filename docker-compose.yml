@@ -1,5 +1,6 @@
 services:
   ssl-tls-reverse-proxy:
+    image: ssl-tls-reverse-proxy-img
     container_name: ssl-tls-reverse-proxy
     build:
       context: ./ssl_tls_reverse_proxy_server
@@ -15,6 +16,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   ssl-tls-certbot:
+    image: ssl-tls-certbot-server-img
     container_name: ssl-tls-certbot-server
     build:
       context: ./ssl_tls_certbot_server
