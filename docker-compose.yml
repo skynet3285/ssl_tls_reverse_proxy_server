@@ -1,0 +1,30 @@
+services:
+  ssl-tls-reverse-proxy:
+    container_name: ssl-tls-reverse-proxy
+    build:
+      context: ./ssl_tls_reverse_proxy_server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3001" # React Service
+    volumes:
+      # certificates
+      - ./certbot/etc/letsencrypt:/etc/nginx/ssl
+      # log
+      - ./ssl_tls_reverse_proxy_server/log/nginx:/var/log/nginx
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  ssl-tls-certbot:
+    container_name: ssl-tls-certbot-server
+    build:
+      context: ./ssl_tls_certbot_server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80" # HTTP for certbot's webroot certification port
+    volumes:
+      # certbot
+      - ./certbot/etc/letsencrypt:/etc/letsencrypt
+      - ./certbot/var/www/certbot:/var/www/certbot
+      # log
+      - ./ssl_tls_certbot_server/log/nginx:/var/log/nginx
+      - ./ssl_tls_certbot_server/log/letsencrypt:/var/log/letsencrypt

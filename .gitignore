@@ -1,0 +1,10 @@
+# Nginx Configuration
+nginx.conf
+
+# log
+ssl_tls_certbot_server/log
+ssl_tls_reverse_proxy_server/log
+
+# SSL Certificates
+certbot
+init_cert.sh
