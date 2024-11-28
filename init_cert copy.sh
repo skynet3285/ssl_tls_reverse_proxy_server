@@ -1,7 +1,7 @@
-docker-compose run --rm -p 8080:80 -d --name temp-certbot-nginx --entrypoint \
+docker-compose run -p 8080:80 -d --name temp-certbot-nginx --entrypoint \
     "nginx -g 'daemon off;'" ssl-tls-certbot
 
-docker-compose run --rm --entrypoint --name init-certbot "\
+docker-compose run --rm --name init-certbot --entrypoint "\
     certbot certonly \
     -d {YOUR_DOMAIN} \
     --email {YOUR_EMAIL} \
