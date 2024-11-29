@@ -101,8 +101,6 @@ ${DOMAIN_NAME}에 서버 도메인을 넣고 외부망에 노출할 PORT(https �
 
 ### 초기 인증서 발급 방법
 
-`ssl_tls_certbot_server/nginx copy.conf`를 복사하여 `ssl_tls_certbot_server/nginx.conf`를 만들고 ${DOMAIN_NAME}을 실제 도메인(ex, example.com)으로 수정합니다.
-
 `init_cert.sh copy`을 참고하여 수정 후 해당 쉘을 실행합니다.
 
 쉘이 실행되고 몇 가지 certbot의 초기 인증서 발급을 위한 실행 과정(라이센스 동의합니까 yes, 이메일 광고 수신 동의 합니까 등)을 거치면 `.well-known/acme-challenge` 관한 설정 안내가 나옵니다. 이때 절대로 엔터로 다음 단계로 넘어가지 말세요.
